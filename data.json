@@ -1,38 +1,47 @@
 {
-  "updated_at": "2026-03-16T17:46:50.158995",
+  "updated_at": "2026-03-16T17:52:51.076735",
   "leaderboard": [
     {
       "rank": 1,
       "discord_id": "1463047026215485450",
       "apodo": "RANK 2 | xD",
       "puntos": 612534.0,
-      "partidas": 6,
+      "partidas": 7,
       "victorias": 2,
-      "derrotas": 4,
+      "derrotas": 5,
       "racha": 0,
       "mejor_racha": 2,
       "mvps": 3,
-      "coins": 23,
-      "winrate": 33,
+      "coins": 24,
+      "winrate": 29,
       "avatar_url": "https://cdn.discordapp.com/embed/avatars/5.png"
     },
     {
       "rank": 2,
       "discord_id": "914186864708173855",
       "apodo": "hehehe",
-      "puntos": 2550.0,
-      "partidas": 6,
-      "victorias": 4,
+      "puntos": 2950.0,
+      "partidas": 7,
+      "victorias": 5,
       "derrotas": 2,
-      "racha": 3,
-      "mejor_racha": 3,
-      "mvps": 3,
-      "coins": 25,
-      "winrate": 67,
+      "racha": 4,
+      "mejor_racha": 4,
+      "mvps": 4,
+      "coins": 32,
+      "winrate": 71,
       "avatar_url": "https://cdn.discordapp.com/avatars/914186864708173855/c07efe62d88686ceace2f918a0720d2f.png?size=1024"
     }
   ],
   "partidas": [
+    {
+      "id": 14,
+      "modo": "1v1",
+      "equipo1": "hehehe",
+      "equipo2": "RANK 2 | xD",
+      "ganador": 1,
+      "mvp": "hehehe",
+      "fecha": "16/03 17:50"
+    },
     {
       "id": 12,
       "modo": "1v1",
