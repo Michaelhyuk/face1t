@@ -287,7 +287,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
 <div class="tb" id="tb">
   <span style="font-size:13px">🏆</span>
   <span>AIMERS — Plataforma Competitiva</span>
-  <button class="tb-badge" id="tb-live" onclick="show('lives',document.querySelector('[data-s=lives]'))">● 0 en vivo</button>
+  <button class="tb-badge" id="tb-live" onclick="show('lives',document.querySelector('[data-s=lives]'))" style="display:none">● 0 en vivo</button>
   <button class="tb-x" onclick="document.getElementById('tb').style.display='none'">×</button>
 </div>
 <div class="shell">
@@ -338,7 +338,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
     <div class="sb-div"></div>
     <div class="sb-bot">
       <div class="sb-cta">
-        <div class="sb-ct">🪙 Coins</div>
+        <div class="sb-ct"><span style="color:var(--gold);font-weight:800">Coins</span></div>
         <div class="sb-cd">Gana coins jugando y úsalos en la tienda</div>
         <button class="sb-cb" onclick="show('tienda',document.querySelector('[data-s=tienda]'))">Ver Tienda →</button>
       </div>
@@ -351,8 +351,8 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
       <div class="stat-cards">
         <div class="sc"><div class="sc-icon g">👥</div><div><div class="sc-n" id="sc-jug">0</div><div class="sc-l">Jugadores</div></div></div>
         <div class="sc"><div class="sc-icon b">⚔️</div><div><div class="sc-n" id="sc-par">0</div><div class="sc-l">Partidas</div></div></div>
-        <div class="sc"><div class="sc-icon y">🪙</div><div><div class="sc-n" id="sc-str">0</div><div class="sc-l">Streamers activos</div></div></div>
-        <div class="sc"><div class="sc-icon r">🔴</div><div><div class="sc-n" id="sc-lv">0</div><div class="sc-l">En vivo TikTok</div></div></div>
+        <div class="sc"><div class="sc-icon y"><svg width="18" height="18" viewBox="0 0 24 24" fill="#ffb300"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg></div><div><div class="sc-n" id="sc-str">0</div><div class="sc-l">Streamers activos</div></div></div>
+        <div class="sc"><div class="sc-icon r"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="8"/></svg></div><div><div class="sc-n" id="sc-lv">0</div><div class="sc-l">En vivo TikTok</div></div></div>
       </div>
       <div class="hgrid">
         <div><div class="sec-title">Top Jugadores</div><div class="tw"><div class="th lbc"><span style="text-align:center">#</span><span>Jugador</span><span>ELO</span><span>V / D</span><span>Win Rate</span><span>Coins</span><span>MVPs</span></div><div id="h-lb"><div class="loading">Cargando</div></div></div></div>
@@ -396,7 +396,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
 
     <div id="tienda" class="sec"><div class="pg">
       <div class="pg-hd"><div class="pg-t">Tienda</div></div>
-      <div class="sbi"><span style="color:var(--t2);font-size:12px">Gana coins jugando:</span><span style="color:var(--green);font-weight:600;font-size:12px">+2 victoria</span><span style="color:var(--t2);font-weight:600;font-size:12px">+1 derrota</span><span style="color:var(--gold);font-weight:600;font-size:12px">+5 MVP</span></div>
+      <div class="sbi"><span style="color:var(--t2);font-size:12px">Gana coins jugando:</span><span style="color:var(--green);font-weight:700;font-size:12px">+2 victoria</span><span style="color:var(--t2);font-weight:600;font-size:12px">+1 derrota</span><span style="color:var(--gold);font-weight:700;font-size:12px">+5 MVP</span></div>
       <div id="sh-body"><div class="loading">Cargando</div></div>
     </div></div>
 
@@ -432,6 +432,7 @@ async function load(){
   document.getElementById('sc-str').textContent=st_n;
   document.getElementById('sc-lv').textContent=lv_n;
   document.getElementById('tb-live').textContent='● '+lv_n+' en vivo';
+  document.getElementById('tb-live').style.display=lv_n>0?'':'none';
   rAll();
 }
 function rAll(){rLB();rHLB();rHSt();rM();rSt();rSh();rPL();rLV();}
@@ -443,8 +444,8 @@ function lbRow(p,i){
     <div class="ec"><span class="en">${fn(p.puntos)}</span></div>
     <div class="wl"><span class="ww">${p.victorias}W</span><span style="color:var(--t3)"> /${p.derrotas}L</span></div>
     <div class="wr" style="color:${wr>=50?'var(--green)':'var(--red)'}">${wr}%</div>
-    <div class="cn">🪙${p.coins||0}</div>
-    <div class="mn">⭐${p.mvps||0}</div>
+    <div class="cn">${p.coins||0} <span style="font-size:10px;color:var(--t3);font-weight:500">pts</span></div>
+    <div class="mn">${p.mvps||0} mvp</div>
   </div>`;
 }
 function rLB(){const lb=D.leaderboard||[];if(!lb.length){nd('lb-body','Sin jugadores','Usa el bot para comenzar');return;}document.getElementById('lb-body').innerHTML=lb.map((p,i)=>lbRow(p,i)).join('');}
@@ -469,7 +470,7 @@ function spd(p){
   const mys=(D.partidas||[]).filter(m=>m.equipo1.includes(p.apodo)||m.equipo2.includes(p.apodo));
   const mrs=mys.slice(0,15).map(m=>{
     const e1=m.equipo1.includes(p.apodo),w=(e1&&m.ganador===1)||(!e1&&m.ganador===2);
-    return`<div class="mhr ${w?'win':'loss'}"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mhm">${m.modo.toUpperCase()}</div><div class="mhtm"><span class="${e1?'mhb':''}">${m.equipo1}</span><span style="color:var(--t3);margin:0 6px">vs</span><span class="${!e1?'mhb':''}">${m.equipo2}</span></div><div class="mhmvp">${m.mvp?'⭐ '+m.mvp:''}</div><div class="mhd">${m.fecha}</div></div>`;
+    return`<div class="mhr ${w?'win':'loss'}"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mhm">${m.modo.toUpperCase()}</div><div class="mhtm"><span class="${e1?'mhb':''}">${m.equipo1}</span><span style="color:var(--t3);margin:0 6px">vs</span><span class="${!e1?'mhb':''}">${m.equipo2}</span></div><div class="mhmvp">${m.mvp?'MVP: '+m.mvp:''}</div><div class="mhd">${m.fecha}</div></div>`;
   }).join('');
   document.getElementById('si').value=p.apodo;
   document.getElementById('pres').innerHTML=`
@@ -483,8 +484,8 @@ function spd(p){
       <div class="pfs"><div class="pfv r">${p.derrotas}</div><div class="pfl">Losses</div></div>
       <div class="pfs"><div class="pfv ${wr>=50?'g':'r'}">${wr}%</div><div class="pfl">Win Rate</div></div>
       <div class="pfs"><div class="pfv">${p.partidas}</div><div class="pfl">Matches</div></div>
-      <div class="pfs"><div class="pfv go">⭐ ${p.mvps||0}</div><div class="pfl">MVPs</div></div>
-      <div class="pfs"><div class="pfv go">🪙 ${p.coins||0}</div><div class="pfl">Coins</div></div>
+      <div class="pfs"><div class="pfv go">${p.mvps||0}</div><div class="pfl">MVPs</div></div>
+      <div class="pfs"><div class="pfv go">${p.coins||0}</div><div class="pfl">Coins</div></div>
     </div>
 
   </div>
@@ -499,7 +500,7 @@ function rM(){
   if(!ms.length){nd('m-body','Sin partidas',mf==='all'?'Aún no hay partidas.':'No hay partidas '+mf+'.');return;}
   document.getElementById('m-body').innerHTML=ms.map(m=>{
     const w=m.ganador===1;
-    return`<div class="tr mc"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mhm">${m.modo.toUpperCase()}</div><div style="font-size:12px;color:${w?'var(--green)':'var(--t2)'};font-weight:${w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo1}</div><div style="font-size:12px;color:${!w?'var(--red)':'var(--t2)'};font-weight:${!w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo2}</div><div style="font-size:11px;color:var(--gold);font-weight:600">${m.mvp?'⭐ '+m.mvp:''}</div><div style="font-size:10px;color:var(--t3)">${m.fecha}</div></div>`;
+    return`<div class="tr mc"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mhm">${m.modo.toUpperCase()}</div><div style="font-size:12px;color:${w?'var(--green)':'var(--t2)'};font-weight:${w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo1}</div><div style="font-size:12px;color:${!w?'var(--red)':'var(--t2)'};font-weight:${!w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo2}</div><div style="font-size:11px;color:var(--gold);font-weight:600">${m.mvp?'MVP: '+m.mvp:''}</div><div style="font-size:10px;color:var(--t3)">${m.fecha}</div></div>`;
   }).join('');
 }
 function rLV(){
@@ -526,7 +527,7 @@ function rSt(){
 function rSh(){
   const items=D.tienda||[];
   if(!items.length){nd('sh-body','Tienda vacía','Configura con <code>!setup</code>');return;}
-  document.getElementById('sh-body').innerHTML='<div class="shg">'+items.map(it=>`<div class="shc"><div class="shi">${IC[it.id]||'🎁'}</div><div class="shn">${it.nombre}</div><div class="shd">${it.desc}</div><div class="shp">🪙 ${it.precio} <span style="font-size:10px;color:var(--t3)">coins</span></div></div>`).join('')+'</div>';
+  document.getElementById('sh-body').innerHTML='<div class="shg">'+items.map(it=>`<div class="shc"><div class="shi">${IC[it.id]||'🎁'}</div><div class="shn">${it.nombre}</div><div class="shd">${it.desc}</div><div class="shp">${it.precio} <span style="font-size:11px;color:var(--t3);font-weight:500">coins</span></div></div>`).join('')+'</div>';
 }
 function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.sb-i').forEach(a=>a.classList.remove('on'));document.getElementById(id).classList.add('on');if(el&&el.classList)el.classList.add('on');}
 load();setInterval(load,3*60*1000);
