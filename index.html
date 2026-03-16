@@ -4,615 +4,760 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FACEIT — Ranked Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --o:#ff5500;--o2:#ff6a00;
-  --bg:#111;--bg2:#1a1a1a;--bg3:#222;--bg4:#2a2a2a;--bg5:#333;
-  --br:rgba(255,255,255,0.07);--br2:rgba(255,255,255,0.13);
-  --t:#e8e8e8;--t2:#999;--t3:#555;
-  --green:#5cb85c;--red:#d9534f;--gold:#f0ad4e;
-  --lvl-gray:#757575;--lvl-yellow:#e6b800;--lvl-orange:#e87722;--lvl-red:#c0392b;
+  --o:#ff5500;--o2:#e64d00;
+  --bg:#111;--bg2:#181818;--bg3:#1e1e1e;--bg4:#242424;--bg5:#2a2a2a;
+  --br:rgba(255,255,255,0.06);--br2:rgba(255,255,255,0.11);
+  --t:#e8e8e8;--t2:#9a9a9a;--t3:#555;
+  --green:#5cb85c;--red:#c0392b;--gold:#f0ad4e;
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);font-size:13px;min-height:100vh}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);font-size:13px;display:flex;flex-direction:column}
 
-/* ── HEADER exact FACEIT ── */
-.hdr{
-  background:#0e0e0e;
-  height:56px;
-  display:flex;align-items:center;
-  padding:0 20px;gap:0;
-  border-bottom:1px solid #1e1e1e;
-  position:sticky;top:0;z-index:100;
-}
-.logo{
-  font-family:'Rajdhani',sans-serif;
-  font-size:22px;font-weight:700;
-  letter-spacing:4px;color:var(--o);
-  text-transform:uppercase;
-  margin-right:32px;
-  flex-shrink:0;
-}
-.hdr-nav{display:flex;height:100%;gap:0}
-.hdr-nav a{
-  display:flex;align-items:center;
-  padding:0 16px;
-  font-size:13px;font-weight:500;
-  color:var(--t2);text-decoration:none;
-  border-bottom:2px solid transparent;
-  cursor:pointer;transition:color .15s;
-  white-space:nowrap;letter-spacing:.3px;
-  margin-bottom:-1px;
-}
-.hdr-nav a:hover{color:var(--t)}
-.hdr-nav a.on{color:var(--t);border-bottom-color:var(--o)}
-.hdr-right{margin-left:auto;font-size:11px;color:var(--t3);letter-spacing:.5px}
+/* TOPBAR */
+.tb{background:var(--o);height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:12px;font-size:11px;font-weight:600;letter-spacing:.5px;color:#fff;text-transform:uppercase;position:relative}
+.tb-btn{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.35);color:#fff;font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:700;padding:2px 12px;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+.tb-x{position:absolute;right:14px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer}
 
-/* ── SUBHEADER ── */
-.subhdr{
+/* SHELL */
+.shell{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:200px;background:#0d0d0d;border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sb-hd{padding:13px 14px 8px;border-bottom:1px solid var(--br)}
+.logo{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:4px;color:var(--o)}
+.sb-src{margin:8px 10px 4px;background:var(--bg3);border:1px solid var(--br2);display:flex;align-items:center;gap:6px;padding:6px 10px;color:var(--t3);font-size:12px;cursor:text}
+.sb-src:hover{border-color:var(--o)}
+.sb-grp{padding:6px 0}
+.sb-lbl{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:1.2px;text-transform:uppercase;padding:4px 14px 2px}
+.sb-i{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:600;transition:all .12s;border-left:2px solid transparent}
+.sb-i:hover{background:rgba(255,255,255,.03);color:var(--t)}
+.sb-i.on{color:var(--t);background:rgba(255,85,0,.07);border-left-color:var(--o)}
+.sb-i .ic{font-size:14px;width:16px;text-align:center;flex-shrink:0}
+.sb-c{margin-left:auto;background:var(--bg5);color:var(--t3);font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;min-width:18px;text-align:center}
+.sb-c.lv{background:rgba(92,184,92,.15);color:var(--green)}
+.sb-div{height:1px;background:var(--br);margin:4px 0}
+.sb-bot{margin-top:auto;padding:10px}
+.sb-up{background:linear-gradient(135deg,rgba(255,85,0,.1),rgba(255,85,0,.03));border:1px solid rgba(255,85,0,.25);padding:11px}
+.sb-up-t{font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;color:var(--o);margin-bottom:4px}
+.sb-up-d{font-size:11px;color:var(--t2);line-height:1.4;margin-bottom:8px}
+.sb-up-b{width:100%;background:var(--green);border:none;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:700;padding:5px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+.sb-up-b:hover{background:#4a9e4a}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;background:var(--bg2)}
+.sec{display:none}.sec.on{display:block}
+.inner{padding:20px 24px}
+
+/* HERO */
+.hero{background:linear-gradient(90deg,#1a0900,#2a1200 35%,#1a1a1a 70%,#111);padding:26px 30px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;border-bottom:1px solid var(--br);min-height:125px}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(255,85,0,.18) 0%,transparent 65%)}
+.hero-l{position:relative;z-index:1}
+.hero-l h1{font-family:'Nunito Sans',sans-serif;font-size:24px;font-weight:800;line-height:1.1;margin-bottom:6px}
+.hero-l h1 em{color:var(--o);font-style:normal}
+.hero-l p{font-size:12px;color:var(--t2);margin-bottom:10px}
+.hero-tags{display:flex;gap:6px;flex-wrap:wrap}
+.htag{background:rgba(255,255,255,.06);border:1px solid var(--br2);color:var(--t2);font-size:10px;font-weight:500;padding:3px 9px}
+.hero-r{display:flex;gap:26px;position:relative;z-index:1;flex-shrink:0}
+.hstat{text-align:center}
+.hstat-n{font-family:'Nunito Sans',sans-serif;font-size:28px;font-weight:800;color:var(--o);line-height:1}
+.hstat-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
+
+/* SKILL BAR */
+.skbar{background:var(--bg3);border:1px solid var(--br);padding:11px 18px;margin-bottom:16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.sk-sep{width:1px;height:26px;background:var(--br2)}
+.sk-lbl{font-size:10px;color:var(--t3);text-transform:uppercase;font-weight:600;letter-spacing:.8px}
+.sk-val{font-family:'Nunito Sans',sans-serif;font-size:16px;font-weight:800;margin-top:1px}
+.sk-live{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)}
+.ld{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* CARD GRID */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.mc{background:var(--bg3);border:1px solid var(--br);overflow:hidden;cursor:pointer;transition:border-color .15s,transform .12s;position:relative;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end}
+.mc:hover{border-color:rgba(255,85,0,.35);transform:translateY(-2px)}
+.mc-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:60px;opacity:.12}
+.mc.c1 .mc-bg{background:linear-gradient(135deg,#2a1000,#1a0a00)}
+.mc.c2 .mc-bg{background:linear-gradient(135deg,#0a1800,#111)}
+.mc.c3 .mc-bg{background:linear-gradient(135deg,#0a0020,#111)}
+.mc-gl{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.8) 100%)}
+.mc-txt{position:relative;z-index:1;padding:14px}
+.mc-t{font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;font-weight:700;margin-bottom:3px}
+.mc-s{font-size:11px;color:var(--t2)}
+
+/* TWO COL */
+.twocol{display:grid;grid-template-columns:1fr 290px;gap:14px;align-items:start}
+
+/* PANEL */
+.panel{background:var(--bg3);border:1px solid var(--br);overflow:hidden}
+.ph{padding:9px 13px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:7px;font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.ph .c{background:var(--bg5);color:var(--t3);font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;font-family:'Nunito Sans',sans-serif}
+.p-empty{padding:20px;text-align:center;color:var(--t3);font-size:11px;line-height:1.6}
+.p-btn{display:block;width:calc(100% - 18px);margin:0 9px 9px;background:var(--bg4);border:1px solid var(--br2);color:var(--t2);font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:700;padding:6px;text-align:center;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:all .15s}
+.p-btn:hover{border-color:var(--o);color:var(--o)}
+
+/* SECTION TITLE */
+.stit{font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.stit::before{content:'';display:block;width:3px;height:15px;background:var(--o);flex-shrink:0}
+.stit .n{background:var(--bg5);color:var(--t3);font-size:10px;font-weight:600;padding:1px 7px;border-radius:8px;font-family:'Nunito Sans',sans-serif;margin-left:2px}
+
+/* LB */
+.lbw{background:var(--bg3);border:1px solid var(--br);overflow:hidden}
+.lbh,.lbr{display:grid;grid-template-columns:48px minmax(0,1fr) 118px 98px 86px 80px 68px;padding:8px 13px;align-items:center;gap:8px}
+.lbh{background:var(--bg4);border-bottom:1px solid var(--br);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3)}
+.lbr{border-bottom:1px solid var(--br);cursor:pointer;transition:background .1s}
+.lbr:last-child{border-bottom:none}
+.lbr:hover{background:rgba(255,255,255,.02)}
+.lbr.r1{border-left:2px solid #f5c518}.lbr.r2{border-left:2px solid #9e9e9e}.lbr.r3{border-left:2px solid #cd7f32}
+.pos{display:flex;align-items:center;justify-content:center;font-size:15px}
+.posn{font-size:11px;font-weight:600;color:var(--t3)}
+.pc2{display:flex;align-items:center;gap:9px}
+.av{width:27px;height:27px;border-radius:50%;background:var(--bg5);overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:700;color:var(--o);flex-shrink:0;border:1px solid var(--br2)}
+.av img{width:100%;height:100%;object-fit:cover}
+.pn{font-size:13px;font-weight:700;font-family:'Nunito Sans',sans-serif}
+.eloc{display:flex;align-items:center;gap:6px}
+.lvl{width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;flex-shrink:0}
+.lv1,.lv2,.lv3{background:#5f6368;color:#fff}
+.lv4,.lv5{background:#e6b800;color:#000}
+.lv6,.lv7{background:#e87722;color:#fff}
+.lv8,.lv9{background:#c0392b;color:#fff}
+.lv10{background:#7b0000;color:#fff}
+.elon{font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700}
+.wl{font-size:12px}.ww{color:var(--green);font-weight:600}.ll{color:var(--t3)}
+.wrn{font-size:12px;font-weight:600}
+.cn{font-size:12px;font-weight:600;color:var(--gold)}
+.mv{font-size:12px;color:var(--t2)}
+
+/* PROFILE */
+.psrc{display:flex;gap:7px;margin-bottom:11px}
+.psrc input{flex:1;background:var(--bg3);border:1px solid var(--br2);color:var(--t);font-family:'Nunito Sans',sans-serif;font-size:13px;padding:7px 11px;outline:none;transition:border .15s}
+.psrc input:focus{border-color:var(--o)}
+.psrc input::placeholder{color:var(--t3)}
+.btn{background:var(--o);border:none;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;padding:7px 18px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:background .15s}
+.btn:hover{background:var(--o2)}
+.pl{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.plc{background:var(--bg3);border:1px solid var(--br);color:var(--t2);font-size:11px;padding:3px 9px;cursor:pointer;transition:all .12s}
+.plc:hover{border-color:var(--o);color:var(--t)}
+/* ── PERFIL FACEIT AUTÉNTICO ── */
+.prof-outer{display:flex;flex-direction:column;gap:0}
+
+/* Banner + avatar */
+.prof-banner{
+  height:160px;
+  background:linear-gradient(135deg,#1a0800 0%,#2d1400 40%,#111 100%);
+  position:relative;overflow:hidden;
+}
+.prof-banner::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 60%,rgba(255,85,0,.25) 0%,transparent 65%);
+}
+.prof-banner-overlay{
+  position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,var(--bg2),transparent);
+}
+
+/* Barra de info bajo el banner — exactamente como FACEIT */
+.prof-info-bar{
   background:var(--bg2);
   border-bottom:1px solid var(--br);
-  padding:0 20px;height:38px;
-  display:flex;align-items:center;gap:8px;
+  padding:0 24px 0 220px;
+  min-height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;
 }
-.badge{
-  background:var(--bg4);color:var(--t2);
-  font-size:11px;font-weight:600;
-  padding:2px 10px;border-radius:2px;
-  letter-spacing:.3px;text-transform:uppercase;
+.prof-av-wrap{
+  position:absolute;
+  left:24px;
+  bottom:-4px;
 }
-.badge.live{background:rgba(92,184,92,.1);color:var(--green)}
-
-/* ── LAYOUT ── */
-.wrap{max-width:1280px;margin:0 auto;padding:28px 20px}
-.sec{display:none}.sec.on{display:block}
-
-/* ── SECTION TITLE like FACEIT ── */
-.sec-title{
+.prof-av{
+  width:110px;height:110px;border-radius:50%;
+  border:4px solid var(--bg2);
+  background:rgba(255,85,0,.15);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-size:38px;font-weight:700;color:var(--o);
+  box-shadow:0 4px 20px rgba(0,0,0,.6);
+}
+.prof-av img{width:100%;height:100%;object-fit:cover}
+.prof-name-block{display:flex;flex-direction:column;gap:2px}
+.prof-nickname{
   font-family:'Rajdhani',sans-serif;
-  font-size:17px;font-weight:700;
-  text-transform:uppercase;letter-spacing:1px;
-  margin-bottom:14px;
-  display:flex;align-items:center;gap:10px;
+  font-size:22px;font-weight:700;
+  letter-spacing:.3px;color:var(--t);
 }
-.sec-title::before{content:'';display:block;width:3px;height:18px;background:var(--o);flex-shrink:0;border-radius:1px}
+.prof-rank-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;color:var(--t2);
+  text-transform:uppercase;letter-spacing:.5px;
+}
+.prof-rank-num{color:var(--o)}
 
-/* ── LEADERBOARD ── */
-.lb-wrap{background:var(--bg2);border:1px solid var(--br);overflow:hidden}
-.lb-head,.lb-row{
-  display:grid;
-  grid-template-columns:56px minmax(0,1fr) 130px 110px 100px 90px 80px;
-  padding:9px 16px;align-items:center;gap:8px;
-}
-.lb-head{
+/* Stats horizontales — exactamente como FACEIT */
+.prof-stats-row{
   background:var(--bg3);
   border-bottom:1px solid var(--br);
-  font-size:10px;font-weight:600;
-  text-transform:uppercase;letter-spacing:1px;color:var(--t3);
+  display:flex;align-items:stretch;
 }
-.lb-row{
-  border-bottom:1px solid var(--br);
-  cursor:pointer;transition:background .1s;
+.prof-stat{
+  flex:1;padding:14px 20px;
+  border-right:1px solid var(--br);
+  display:flex;flex-direction:column;gap:3px;
 }
-.lb-row:last-child{border-bottom:none}
-.lb-row:hover{background:var(--bg3)}
-.lb-row.r1{border-left:2px solid #f5c518}
-.lb-row.r2{border-left:2px solid #9e9e9e}
-.lb-row.r3{border-left:2px solid #cd7f32}
-
-/* Position */
-.pos-wrap{display:flex;align-items:center;justify-content:center;gap:6px}
-.trophy{font-size:15px}
-.pos-n{font-size:12px;font-weight:600;color:var(--t2)}
-
-/* Player cell */
-.pcell{display:flex;align-items:center;gap:10px}
-.av{
-  width:28px;height:28px;border-radius:50%;
-  background:var(--bg4);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:var(--o);
-  flex-shrink:0;overflow:hidden;
-  border:1px solid var(--br2);
-}
-.av img{width:100%;height:100%;object-fit:cover}
-.pname{font-size:13px;font-weight:600;letter-spacing:.2px}
-.pname:hover{color:var(--o)}
-
-/* ELO cell */
-.elo-cell{display:flex;align-items:center;gap:7px}
-.lvl-icon{
-  width:24px;height:24px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
+.prof-stat:last-child{border-right:none}
+.prof-stat-val{
   font-family:'Rajdhani',sans-serif;
-  font-size:11px;font-weight:700;flex-shrink:0;
+  font-size:22px;font-weight:700;color:var(--t);
+  line-height:1;
 }
-.lv1,.lv2,.lv3{background:var(--lvl-gray);color:#fff}
-.lv4,.lv5{background:var(--lvl-yellow);color:#000}
-.lv6,.lv7{background:var(--lvl-orange);color:#fff}
-.lv8,.lv9{background:var(--lvl-red);color:#fff}
-.lv10{background:#7b0000;color:#fff}
-.elo-n{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700}
+.prof-stat-lbl{
+  font-size:10px;font-weight:600;color:var(--t3);
+  text-transform:uppercase;letter-spacing:.8px;
+}
+.prof-stat-val.green{color:var(--green)}
+.prof-stat-val.red{color:var(--red)}
+.prof-stat-val.orange{color:var(--o)}
+.prof-stat-val.gold{color:var(--gold)}
 
-/* Stats */
-.wl-cell{font-size:12px}
-.ww{color:var(--green);font-weight:600}
-.ll{color:var(--t3)}
-.wr-cell{font-size:12px;font-weight:600}
-.coin-cell{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--gold)}
-.mvp-cell{font-size:12px;color:var(--t2)}
-
-/* ── PROFILE ── */
-.ps{display:flex;gap:8px;margin-bottom:12px}
-.ps input{
-  flex:1;background:var(--bg2);
-  border:1px solid var(--br2);
-  color:var(--t);font-family:'Inter',sans-serif;font-size:13px;
-  padding:8px 12px;outline:none;transition:border .15s;
+/* ELO card con nivel */
+.prof-elo-card{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 20px;
+  border-right:1px solid var(--br);
+  flex-shrink:0;min-width:140px;
 }
-.ps input:focus{border-color:var(--o)}
-.ps input::placeholder{color:var(--t3)}
-.btn{
-  background:var(--o);border:none;color:#fff;
-  font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;
-  padding:8px 20px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;
-  transition:background .15s;
-}
-.btn:hover{background:var(--o2)}
-.pl{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.pc{
-  background:var(--bg3);border:1px solid var(--br);
-  color:var(--t2);font-size:11px;font-weight:500;
-  padding:3px 10px;cursor:pointer;transition:all .12s;
-}
-.pc:hover{border-color:var(--o);color:var(--t)}
-
-.pw{display:grid;grid-template-columns:270px 1fr;gap:16px;align-items:start}
-.pcard{background:var(--bg2);border:1px solid var(--br);overflow:hidden}
-.pbanner{height:65px;background:linear-gradient(135deg,#0a0a0a,#1a0800);position:relative}
-.pbanner::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--o)}
-.pbody{padding:0 14px 14px}
-.pav{
-  width:54px;height:54px;border-radius:50%;
-  background:rgba(255,85,0,.12);
+.prof-lvl-big{
+  width:40px;height:40px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--o);
-  border:3px solid var(--bg2);
-  margin-top:-27px;margin-bottom:8px;overflow:hidden;
+  font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;font-weight:800;
+  flex-shrink:0;
 }
-.pav img{width:100%;height:100%;object-fit:cover}
-.pnick{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;letter-spacing:.5px}
-.prank{font-size:10px;color:var(--o);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-top:1px}
-.pelo-row{
-  display:flex;align-items:center;gap:10px;
-  margin:10px 0;padding:10px;
-  background:var(--bg3);border:1px solid var(--br);
+.prof-elo-num{
+  font-family:'Nunito Sans',sans-serif;font-size:22px;font-weight:800;
+  line-height:1;
 }
-.pelo-n{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700}
-.pelo-lbl{font-size:9px;color:var(--t3);text-transform:uppercase;font-weight:600;letter-spacing:.5px}
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
-.si{background:var(--bg3);padding:9px;border:1px solid var(--br)}
-.si .sv{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:1px}
-.si .sl{font-size:9px;color:var(--t3);text-transform:uppercase;font-weight:600;letter-spacing:.5px}
-.si.g .sv{color:var(--green)}.si.r .sv{color:var(--red)}
-.si.go .sv{color:var(--gold)}.si.or .sv{color:var(--o)}
+.prof-elo-lbl{
+  font-size:10px;color:var(--t3);
+  text-transform:uppercase;font-weight:600;letter-spacing:.8px;margin-top:2px;
+}
 
-.pmbox{background:var(--bg2);border:1px solid var(--br);overflow:hidden}
-.pmh{
-  padding:8px 14px;background:var(--bg3);
-  border-bottom:1px solid var(--br);
-  font-family:'Rajdhani',sans-serif;
-  font-size:12px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.8px;color:var(--t3);
-}
-.pmr{display:flex;align-items:center;gap:9px;padding:8px 14px;border-bottom:1px solid var(--br)}
-.pmr:last-child{border-bottom:none}
-.res{
-  font-size:10px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;padding:2px 7px;white-space:nowrap;
-  font-family:'Rajdhani',sans-serif;
-}
-.res.win{background:rgba(92,184,92,.12);color:var(--green)}
-.res.loss{background:rgba(217,83,79,.1);color:var(--red)}
-.mmode{
-  background:var(--bg4);color:var(--o);
-  font-size:10px;font-weight:700;padding:2px 7px;
-  font-family:'Rajdhani',sans-serif;letter-spacing:.5px;
-}
-.mteams{flex:1;font-size:12px;color:var(--t2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mvn{color:var(--t);font-weight:600}
-.mmvp{font-size:11px;color:var(--gold);white-space:nowrap}
-.mdate{font-size:10px;color:var(--t3);white-space:nowrap}
-
-/* ── MATCHES ── */
-.mfilt{display:flex;gap:5px;margin-bottom:12px}
-.fb{
-  background:var(--bg3);border:1px solid var(--br);
-  color:var(--t2);font-family:'Rajdhani',sans-serif;
-  font-size:12px;font-weight:700;
-  padding:5px 13px;cursor:pointer;
-  letter-spacing:.5px;text-transform:uppercase;
-  transition:all .12s;
-}
-.fb:hover,.fb.on{background:var(--o);border-color:var(--o);color:#fff}
-.mwrap{background:var(--bg2);border:1px solid var(--br);overflow:hidden}
-.mhd,.mr{
-  display:grid;
-  grid-template-columns:80px 80px 1fr 1fr 120px 110px;
-  padding:8px 14px;align-items:center;gap:10px;
-}
-.mhd{
+/* Barra de progreso de nivel */
+.lvl-progress{
   background:var(--bg3);border-bottom:1px solid var(--br);
-  font-size:10px;font-weight:600;
-  text-transform:uppercase;letter-spacing:1px;color:var(--t3);
+  padding:10px 24px;display:flex;align-items:center;gap:12px;
 }
+.lvl-prog-lbl{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.lvl-prog-bar{flex:1;height:4px;background:var(--bg5);border-radius:2px;overflow:hidden}
+.lvl-prog-fill{height:100%;background:var(--o);border-radius:2px;transition:width .5s ease}
+.lvl-prog-next{font-size:10px;color:var(--t3);white-space:nowrap}
+
+/* Match history — FACEIT style */
+.mh-wrap{background:var(--bg2)}
+.mh-hd{
+  padding:12px 20px;border-bottom:1px solid var(--br);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mh-title{
+  font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;color:var(--t2);
+}
+.mh-row{
+  display:grid;
+  grid-template-columns:80px 60px 1fr 130px 90px;
+  padding:11px 20px;border-bottom:1px solid var(--br);
+  align-items:center;gap:12px;transition:background .1s;
+}
+.mh-row:hover{background:rgba(255,255,255,.02)}
+.mh-row:last-child{border-bottom:none}
+.mh-row.win{border-left:3px solid var(--green)}
+.mh-row.loss{border-left:3px solid var(--red)}
+.mh-res{
+  font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 8px;text-align:center;
+}
+.mh-res.win{background:rgba(92,184,92,.12);color:var(--green)}
+.mh-res.loss{background:rgba(192,57,43,.1);color:var(--red)}
+.mh-mode{
+  background:var(--bg4);color:var(--o);
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
+  padding:2px 7px;text-align:center;
+}
+.mh-teams{font-size:12px;color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mh-teams .bold{color:var(--t);font-weight:600}
+.mh-mvp{font-size:11px;color:var(--gold);text-align:right}
+.mh-date{font-size:10px;color:var(--t3);text-align:right}
+
+.pw{display:block}
+.pmb{background:var(--bg3);border:1px solid var(--br);overflow:hidden}
+.pmh{padding:7px 13px;background:var(--bg4);border-bottom:1px solid var(--br);font-family:'Nunito Sans',sans-serif;font-size:11px;font-weight:700;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3)}
+.pmr{display:flex;align-items:center;gap:7px;padding:7px 13px;border-bottom:1px solid var(--br)}
+.pmr:last-child{border-bottom:none}
+.res{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;white-space:nowrap;font-family:'Rajdhani',sans-serif}
+.res.win{background:rgba(92,184,92,.1);color:var(--green)}
+.res.loss{background:rgba(192,57,43,.1);color:var(--red)}
+.mmode{background:var(--bg5);color:var(--o);font-size:10px;font-weight:700;padding:2px 6px;font-family:'Rajdhani',sans-serif}
+.mt{flex:1;font-size:11px;color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mvn{color:var(--t);font-weight:600}
+.mmvp{font-size:10px;color:var(--gold);white-space:nowrap}
+.mdt{font-size:10px;color:var(--t3);white-space:nowrap}
+
+/* MATCHES */
+.mfilt{display:flex;gap:5px;margin-bottom:11px}
+.fb{background:var(--bg3);border:1px solid var(--br);color:var(--t2);font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;font-weight:700;padding:4px 12px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:all .12s}
+.fb:hover,.fb.on{background:var(--o);border-color:var(--o);color:#fff}
+.mw{background:var(--bg3);border:1px solid var(--br);overflow:hidden}
+.mhd,.mr{display:grid;grid-template-columns:76px 74px 1fr 1fr 100px 98px;padding:8px 13px;align-items:center;gap:9px}
+.mhd{background:var(--bg4);border-bottom:1px solid var(--br);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3)}
 .mr{border-bottom:1px solid var(--br);transition:background .1s}
 .mr:last-child{border-bottom:none}
-.mr:hover{background:var(--bg3)}
-.mr.win{border-left:2px solid var(--green)}
-.mr.loss{border-left:2px solid var(--red)}
+.mr:hover{background:rgba(255,255,255,.02)}
+.mr.win{border-left:2px solid var(--green)}.mr.loss{border-left:2px solid var(--red)}
 
-/* ── STREAMERS ── */
-.stg{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.stc{background:var(--bg2);border:1px solid var(--br);overflow:hidden;transition:border-color .15s}
-.stc:hover{border-color:var(--br2)}
-.stc.lv{border-color:rgba(92,184,92,.25)}
-.stt{height:4px;background:var(--bg4)}.stc.lv .stt{background:var(--green)}
-.stb{padding:14px}
-.sth{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.stav{
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(255,85,0,.1);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--o);
-  border:2px solid var(--br);flex-shrink:0;overflow:hidden;
-}
+/* STREAMERS */
+.stg{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
+.stc{background:var(--bg3);border:1px solid var(--br);overflow:hidden;transition:border-color .15s}
+.stc:hover{border-color:var(--br2)}.stc.lv{border-color:rgba(92,184,92,.22)}
+.stt{height:4px;background:var(--bg5)}.stc.lv .stt{background:var(--green)}
+.stb{padding:12px}
+.sth{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.stav{width:36px;height:36px;border-radius:50%;background:rgba(255,85,0,.08);overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;color:var(--o);border:1px solid var(--br2);flex-shrink:0}
 .stav img{width:100%;height:100%;object-fit:cover}
-.stc.lv .stav{border-color:rgba(92,184,92,.35)}
-.stname{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:.3px}
-.ststat{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:4px;margin-top:2px}
+.stc.lv .stav{border-color:rgba(92,184,92,.3)}
+.stname{font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700}
+.stst{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:3px;margin-top:2px}
 .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
-.ststat.lv{color:var(--green)}.ststat.of{color:var(--t3)}
-.ld{animation:pulse 1.4s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-.spills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
-.pill{background:var(--bg4);color:var(--t2);font-size:10px;font-weight:600;padding:2px 8px;font-family:'Rajdhani',sans-serif;letter-spacing:.3px}
+.stst.lv{color:var(--green)}.stst.of{color:var(--t3)}
+.ldot{animation:blink 1.4s infinite}
+.spills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+.pill{background:var(--bg5);color:var(--t2);font-size:10px;font-weight:600;padding:2px 7px;font-family:'Rajdhani',sans-serif}
 .pill.m{color:var(--o)}
-.qrow{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--t3)}
+.qr{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--t3)}
 .qb{flex:1;height:3px;background:var(--bg5)}.qf{height:100%;background:var(--o);transition:width .4s}
 
-/* ── SHOP ── */
-.shop-info{
-  background:var(--bg2);border:1px solid var(--br);
-  padding:10px 14px;margin-bottom:14px;
-  display:flex;gap:20px;flex-wrap:wrap;align-items:center;
-}
-.shg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.shc{
-  background:var(--bg2);border:1px solid var(--br);
-  padding:14px;transition:border-color .15s,transform .15s;
-}
-.shc:hover{border-color:rgba(255,85,0,.4);transform:translateY(-2px)}
-.shi{
-  width:32px;height:32px;
-  background:rgba(255,85,0,.08);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;margin-bottom:8px;
-}
-.shn{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;margin-bottom:5px;letter-spacing:.3px}
-.shd{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:10px;min-height:32px}
-.shp{display:flex;align-items:center;gap:5px;font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--gold)}
-.shp span{font-size:10px;color:var(--t3);font-weight:400;font-family:'Inter',sans-serif}
+/* SHOP */
+.shopbar{background:var(--bg3);border:1px solid var(--br);padding:9px 13px;margin-bottom:13px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.shg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px}
+.shc{background:var(--bg3);border:1px solid var(--br);padding:13px;transition:border-color .15s,transform .12s}
+.shc:hover{border-color:rgba(255,85,0,.3);transform:translateY(-2px)}
+.shi{width:30px;height:30px;background:rgba(255,85,0,.08);display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:7px}
+.shn{font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;margin-bottom:3px}
+.shd{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:8px;min-height:30px}
+.shp{display:flex;align-items:center;gap:4px;font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;color:var(--gold)}
+.shp span{font-size:10px;color:var(--t3);font-weight:400;font-family:'Nunito Sans',sans-serif}
 
-.empty{text-align:center;padding:32px;color:var(--t3);font-size:12px;letter-spacing:.5px}
-.loading{
-  text-align:center;padding:32px;
-  color:var(--t2);font-size:10px;letter-spacing:2px;text-transform:uppercase;
-}
-.no-data{
-  background:var(--bg2);border:1px solid var(--br);
-  padding:40px;text-align:center;
-}
-.no-data h3{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--t2);margin-bottom:6px;letter-spacing:.5px}
-.no-data p{font-size:12px;color:var(--t3);line-height:1.6}
-.no-data code{background:var(--bg4);color:var(--o);padding:1px 6px;font-size:11px}
+.empty{text-align:center;padding:28px;color:var(--t3);font-size:12px}
+.loading{text-align:center;padding:28px;color:var(--t2);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.nd{background:var(--bg3);border:1px solid var(--br);padding:30px;text-align:center}
+.nd h3{font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;font-weight:700;color:var(--t2);margin-bottom:4px}
+.nd p{font-size:11px;color:var(--t3);line-height:1.6}
+.nd code{background:var(--bg5);color:var(--o);padding:1px 5px;font-size:10px}
 
 @media(max-width:900px){
-  .lb-head,.lb-row{grid-template-columns:44px 1fr 100px 70px}
-  .lb-head>*:nth-child(n+5),.lb-row>*:nth-child(n+5){display:none}
-  .pw{grid-template-columns:1fr}
-  .mhd,.mr{grid-template-columns:70px 70px 1fr 80px}
+  .sidebar{display:none}
+  .lbh,.lbr{grid-template-columns:36px 1fr 82px 52px}
+  .lbh>*:nth-child(n+5),.lbr>*:nth-child(n+5){display:none}
+  .prof-stats-row{flex-wrap:wrap}
+  .prof-stat,.prof-elo-card{min-width:50%}
+  .mh-row{grid-template-columns:70px 55px 1fr 80px}
+  .mh-row>*:nth-child(n+5){display:none}
+  .mhd,.mr{grid-template-columns:62px 62px 1fr 72px}
   .mhd>*:nth-child(n+5),.mr>*:nth-child(n+5){display:none}
-  .wrap{padding:16px}
+  .twocol{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:1fr}
+  .hero-r{display:none}
+  .inner{padding:13px}
 }
 </style>
 </head>
 <body>
-<div class="hdr">
-  <div class="logo">FACEIT</div>
-  <nav class="hdr-nav">
-    <a class="on" onclick="show('ranking',this)">Ranking</a>
-    <a onclick="show('perfil',this)">Perfil</a>
-    <a onclick="show('partidas',this)">Partidas</a>
-    <a onclick="show('streamers',this)">Streamers</a>
-    <a onclick="show('tienda',this)">Tienda</a>
-  </nav>
-  <div class="hdr-right" id="upd"></div>
+<div class="tb" id="tb">
+  <span>🏆</span>
+  <span>RANKED HUB — Sistema competitivo</span>
+  <button class="tb-btn" id="tb-live" onclick="show('streamers',document.querySelector('[data-s=streamers]'))">● 0 en vivo</button>
+  <button class="tb-x" onclick="document.getElementById('tb').style.display='none'">×</button>
 </div>
-<div class="subhdr">
-  <span class="badge">Ranked Hub</span>
-  <span class="badge live" id="livebadge">● 0 activos</span>
-</div>
-<div class="wrap">
-
-<div id="ranking" class="sec on">
-  <div class="sec-title">Leaderboard</div>
-  <div class="lb-wrap">
-    <div class="lb-head">
-      <span style="text-align:center">#</span><span>Jugador</span>
-      <span>ELO</span><span>V / D</span><span>Win Rate</span><span>Coins</span><span>MVPs</span>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sb-hd"><div class="logo">FACEIT</div></div>
+    <div style="padding:7px 9px 3px">
+      <div class="sb-src" onclick="show('perfil',document.querySelector('[data-s=perfil]'))">
+        <span>🔍</span><span>Buscar jugador...</span>
+      </div>
     </div>
-    <div id="lb-body"><div class="loading">Cargando</div></div>
-  </div>
-</div>
+    <div class="sb-grp">
+      <div class="sb-i on" data-s="home" onclick="show('home',this)"><span class="ic">🏠</span>Inicio</div>
+      <div class="sb-i" data-s="ranking" onclick="show('ranking',this)"><span class="ic">🏆</span>Ranking<span class="sb-c" id="s-lb">0</span></div>
+      <div class="sb-i" data-s="perfil" onclick="show('perfil',this)"><span class="ic">👤</span>Perfil</div>
+      <div class="sb-i" data-s="partidas" onclick="show('partidas',this)"><span class="ic">⚔️</span>Partidas<span class="sb-c" id="s-m">0</span></div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-grp">
+      <div class="sb-lbl">Comunidad</div>
+      <div class="sb-i" data-s="streamers" onclick="show('streamers',this)"><span class="ic">🎙️</span>Streamers<span class="sb-c lv" id="s-st">0</span></div>
+      <div class="sb-i" data-s="tienda" onclick="show('tienda',this)"><span class="ic">🛒</span>Tienda</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-bot">
+      <div class="sb-up">
+        <div class="sb-up-t">🪙 Coins</div>
+        <div class="sb-up-d">Gana coins jugando y úsalos en la tienda</div>
+        <button class="sb-up-b" onclick="show('tienda',document.querySelector('[data-s=tienda]'))">Ver Tienda →</button>
+      </div>
+    </div>
+  </aside>
+  <main class="content">
 
-<div id="perfil" class="sec">
-  <div class="sec-title">Perfil</div>
-  <div class="ps">
-    <input id="si" type="text" placeholder="Buscar jugador..." onkeydown="if(event.key==='Enter')search()">
-    <button class="btn" onclick="search()">Buscar</button>
-  </div>
-  <div class="pl" id="pl"></div>
-  <div id="pr"></div>
-</div>
+    <!-- HOME -->
+    <div id="home" class="sec on">
+      <div class="hero">
+        <div class="hero-l">
+          <h1>Juega con los <em>mejores!</em></h1>
+          <p>Sistema de colas ranked para tu servidor de Discord</p>
+          <div class="hero-tags">
+            <span class="htag">⚡ ELO Rating</span>
+            <span class="htag">🏅 Niveles 1-10</span>
+            <span class="htag">🪙 Coins</span>
+            <span class="htag">🎙️ Streamers</span>
+          </div>
+        </div>
+        <div class="hero-r" id="hs">
+          <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Jugadores</div></div>
+          <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Partidas</div></div>
+          <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">En Vivo</div></div>
+        </div>
+      </div>
+      <div class="inner">
+        <div class="cgrid">
+          <div class="mc c1" onclick="show('ranking',document.querySelector('[data-s=ranking]'))">
+            <div class="mc-bg">🏆</div><div class="mc-gl"></div>
+            <div class="mc-txt"><div class="mc-t">Ranking</div><div class="mc-s">Leaderboard completo</div></div>
+          </div>
+          <div class="mc c2" onclick="show('partidas',document.querySelector('[data-s=partidas]'))">
+            <div class="mc-bg">⚔️</div><div class="mc-gl"></div>
+            <div class="mc-txt"><div class="mc-t">Partidas</div><div class="mc-s" id="c-m-s">0 partidas registradas</div></div>
+          </div>
+          <div class="mc c3" onclick="show('streamers',document.querySelector('[data-s=streamers]'))">
+            <div class="mc-bg">🎙️</div><div class="mc-gl"></div>
+            <div class="mc-txt"><div class="mc-t">Streamers</div><div class="mc-s" id="c-st-s">Fila de retadores</div></div>
+          </div>
+        </div>
+        <div class="twocol">
+          <div>
+            <div class="stit">Top Jugadores</div>
+            <div class="lbw">
+              <div class="lbh"><span style="text-align:center">#</span><span>Jugador</span><span>ELO</span><span>V/D</span><span>WR</span><span>Coins</span><span>MVPs</span></div>
+              <div id="h-lb"><div class="loading">Cargando</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="stit">Streamers</div>
+            <div class="panel" id="h-st"><div class="loading">Cargando</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div id="partidas" class="sec">
-  <div class="sec-title">Partidas Recientes</div>
-  <div class="mfilt">
-    <button class="fb on" onclick="filt('all',this)">Todas</button>
-    <button class="fb" onclick="filt('1v1',this)">1v1</button>
-    <button class="fb" onclick="filt('2v2',this)">2v2</button>
-    <button class="fb" onclick="filt('3v3',this)">3v3</button>
-    <button class="fb" onclick="filt('4v4',this)">4v4</button>
-  </div>
-  <div class="mwrap">
-    <div class="mhd"><span>Resultado</span><span>Modo</span><span>Equipo 1</span><span>Equipo 2</span><span>MVP</span><span>Fecha</span></div>
-    <div id="mb"><div class="loading">Cargando</div></div>
-  </div>
-</div>
+    <!-- RANKING -->
+    <div id="ranking" class="sec">
+      <div class="inner">
+        <div class="skbar">
+          <div><div class="sk-lbl">Top ELO</div><div class="sk-val" id="top-elo">—</div></div>
+          <div class="sk-sep"></div>
+          <div><div class="sk-lbl">Jugadores</div><div class="sk-val" id="top-n">0</div></div>
+          <div class="sk-sep"></div>
+          <div class="sk-live"><div class="ld"></div><span id="live-lbl">0 en vivo</span></div>
+        </div>
+        <div class="stit">Leaderboard <span class="n" id="lb-cnt">0</span></div>
+        <div class="lbw">
+          <div class="lbh"><span style="text-align:center">#</span><span>Jugador</span><span>ELO</span><span>V/D</span><span>Win Rate</span><span>Coins</span><span>MVPs</span></div>
+          <div id="lb-body"><div class="loading">Cargando</div></div>
+        </div>
+      </div>
+    </div>
 
-<div id="streamers" class="sec">
-  <div class="sec-title">Streamers</div>
-  <div id="sb"><div class="loading">Cargando</div></div>
-</div>
+    <!-- PERFIL -->
+    <div id="perfil" class="sec">
+      <div class="inner">
+        <div class="stit">Perfil</div>
+        <div class="psrc"><input id="si" type="text" placeholder="Buscar jugador..." onkeydown="if(event.key==='Enter')search()"><button class="btn" onclick="search()">Buscar</button></div>
+        <div class="pl" id="pl"></div>
+        <div id="pr"></div>
+      </div>
+    </div>
 
-<div id="tienda" class="sec">
-  <div class="sec-title">Tienda</div>
-  <div class="shop-info">
-    <span style="color:var(--t2);font-size:12px">Gana coins jugando:</span>
-    <span style="color:var(--green);font-weight:600;font-size:12px">+2 victoria</span>
-    <span style="color:var(--t2);font-weight:600;font-size:12px">+1 derrota</span>
-    <span style="color:var(--gold);font-weight:600;font-size:12px">+5 MVP</span>
-  </div>
-  <div id="shb"><div class="loading">Cargando</div></div>
-</div>
+    <!-- PARTIDAS -->
+    <div id="partidas" class="sec">
+      <div class="inner">
+        <div class="stit">Partidas Recientes</div>
+        <div class="mfilt">
+          <button class="fb on" onclick="filt('all',this)">Todas</button>
+          <button class="fb" onclick="filt('1v1',this)">1v1</button>
+          <button class="fb" onclick="filt('2v2',this)">2v2</button>
+          <button class="fb" onclick="filt('3v3',this)">3v3</button>
+          <button class="fb" onclick="filt('4v4',this)">4v4</button>
+        </div>
+        <div class="mw">
+          <div class="mhd"><span>Resultado</span><span>Modo</span><span>Equipo 1</span><span>Equipo 2</span><span>MVP</span><span>Fecha</span></div>
+          <div id="mb"><div class="loading">Cargando</div></div>
+        </div>
+      </div>
+    </div>
 
+    <!-- STREAMERS -->
+    <div id="streamers" class="sec">
+      <div class="inner">
+        <div class="stit">Streamers</div>
+        <div id="sb"><div class="loading">Cargando</div></div>
+      </div>
+    </div>
+
+    <!-- TIENDA -->
+    <div id="tienda" class="sec">
+      <div class="inner">
+        <div class="stit">Tienda</div>
+        <div class="shopbar">
+          <span style="color:var(--t2);font-size:12px">Gana coins:</span>
+          <span style="color:var(--green);font-weight:600;font-size:12px">+2 victoria</span>
+          <span style="color:var(--t2);font-weight:600;font-size:12px">+1 derrota</span>
+          <span style="color:var(--gold);font-weight:600;font-size:12px">+5 MVP</span>
+        </div>
+        <div id="shb"><div class="loading">Cargando</div></div>
+      </div>
+    </div>
+
+  </main>
 </div>
 <script>
 let D=null,mf='all';
 const IC={doble_puntos:'⚡',escudo:'🛡️',reset_racha:'🔄',cambio_apodo:'✏️',estadisticas:'📊',canal_vip:'👑'};
-
-function lvl(e){
-  if(e<801)return 1;if(e<951)return 2;if(e<1101)return 3;
-  if(e<1251)return 4;if(e<1401)return 5;if(e<1551)return 6;
-  if(e<1701)return 7;if(e<1851)return 8;if(e<2001)return 9;return 10;
-}
+function lvl(e){if(e<801)return 1;if(e<951)return 2;if(e<1101)return 3;if(e<1251)return 4;if(e<1401)return 5;if(e<1551)return 6;if(e<1701)return 7;if(e<1851)return 8;if(e<2001)return 9;return 10;}
 function fn(n){return Math.round(n).toLocaleString('es');}
-function av(url,name,cls){
-  const init=name?name[0].toUpperCase():'?';
-  if(url)return`<div class="${cls}" style="padding:0"><img src="${url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${init}'"></div>`;
-  return`<div class="${cls}">${init}</div>`;
+function avEl(url,name,cls){
+  const i=(name||'?')[0].toUpperCase();
+  return url?`<div class="${cls}" style="padding:0"><img src="${url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${i}';this.parentNode.style.padding=''"></div>`:`<div class="${cls}">${i}</div>`;
 }
+function nod(el,t,s){document.getElementById(el).innerHTML=`<div class="nd"><h3>${t}</h3><p>${s}</p></div>`;}
 
 async function load(){
-  try{
-    const r=await fetch('data.json?t='+Date.now());
-    if(!r.ok)throw new Error('no data');
-    D=await r.json();
-  }catch{
-    // Sin data.json — mostrar estado vacío real
-    D={updated_at:new Date().toISOString(),leaderboard:[],partidas:[],streamers:[],tienda:[]};
-  }
-  const dt=new Date(D.updated_at);
-  document.getElementById('upd').textContent='Act. '+dt.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
-  const live=(D.streamers||[]).filter(s=>s.activo).length;
-  document.getElementById('livebadge').textContent='● '+live+' activo'+(live!==1?'s':'');
+  try{const r=await fetch('data.json?t='+Date.now());if(!r.ok)throw 0;D=await r.json();}
+  catch{D={updated_at:new Date().toISOString(),leaderboard:[],partidas:[],streamers:[],tienda:[]};}
+  const lb=D.leaderboard||[],ms=D.partidas||[],ss=D.streamers||[];
+  const live=ss.filter(s=>s.activo).length;
+  document.getElementById('s-lb').textContent=lb.length;
+  document.getElementById('s-m').textContent=ms.length;
+  document.getElementById('s-st').textContent=live;
+  document.getElementById('tb-live').textContent='● '+live+' en vivo';
+  document.getElementById('lb-cnt').textContent=lb.length;
+  document.getElementById('top-n').textContent=lb.length;
+  document.getElementById('live-lbl').textContent=live+' streamer'+(live!==1?'s':'')+' en vivo';
+  document.getElementById('hs').innerHTML=`
+    <div class="hstat"><div class="hstat-n">${lb.length}</div><div class="hstat-l">Jugadores</div></div>
+    <div class="hstat"><div class="hstat-n">${ms.length}</div><div class="hstat-l">Partidas</div></div>
+    <div class="hstat"><div class="hstat-n">${live}</div><div class="hstat-l">En Vivo</div></div>`;
+  document.getElementById('c-m-s').textContent=ms.length+' partida'+(ms.length!==1?'s':'')+' registrada'+(ms.length!==1?'s':'');
+  document.getElementById('c-st-s').textContent=live+' streamer'+(live!==1?'s':'')+' en vivo';
+  if(lb.length){const lv=lvl(lb[0].puntos);document.getElementById('top-elo').innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px"><span class="lvl lv${lv}" style="width:19px;height:19px;font-size:9px">${lv}</span>${fn(lb[0].puntos)}</span>`;}
   rAll();
 }
-function rAll(){rLB();rM();rSt();rSh();rPL();}
+function rAll(){rLB();rHLB();rHSt();rM();rSt();rSh();rPL();}
 
-function noData(el,msg,sub){
-  document.getElementById(el).innerHTML=`<div class="no-data">
-    <h3>${msg}</h3>
-    <p>${sub}</p>
+function lbRow(p,i){
+  const wr=p.partidas>0?Math.round(p.victorias/p.partidas*100):0;
+  const lv=lvl(p.puntos);
+  const tr=['🥇','🥈','🥉'];
+  return`<div class="lbr ${i<3?'r'+(i+1):''}" onclick="op('${p.apodo}')">
+    <div class="pos">${i<3?`<span>${tr[i]}</span>`:`<span class="posn">#${i+1}</span>`}</div>
+    <div class="pc2">${avEl(p.avatar_url,p.apodo,'av')}<span class="pn">${p.apodo}</span></div>
+    <div class="eloc"><div class="lvl lv${lv}">${lv}</div><div class="elon">${fn(p.puntos)}</div></div>
+    <div class="wl"><span class="ww">${p.victorias}W</span><span class="ll">/${p.derrotas}L</span></div>
+    <div class="wrn" style="color:${wr>=50?'var(--green)':'var(--red)'}">${wr}%</div>
+    <div class="cn">🪙${p.coins||0}</div>
+    <div class="mv">⭐${p.mvps||0}</div>
   </div>`;
 }
-
 function rLB(){
   const lb=D.leaderboard||[];
-  if(!lb.length){
-    noData('lb-body','Sin jugadores registrados',
-      'Cuando alguien use el bot por primera vez aparecerá aquí.');
+  if(!lb.length){nod('lb-body','Sin jugadores','Cuando alguien use el bot aparecerá aquí');return;}
+  document.getElementById('lb-body').innerHTML=lb.map((p,i)=>lbRow(p,i)).join('');
+}
+function rHLB(){
+  const lb=(D.leaderboard||[]).slice(0,5);
+  if(!lb.length){nod('h-lb','Sin jugadores','Usa el bot para empezar');return;}
+  document.getElementById('h-lb').innerHTML=lb.map((p,i)=>lbRow(p,i)).join('');
+}
+function rHSt(){
+  const ss=D.streamers||[],lb=D.leaderboard||[];
+  if(!ss.length){
+    document.getElementById('h-st').innerHTML=`<div class="ph"><span>Streamers</span><span class="c">0</span></div><div class="p-empty">Sin streamers aún.<br>Usa <code style="color:var(--o);font-size:10px">!setstreamer @usuario</code></div><button class="p-btn" onclick="show('streamers',document.querySelector('[data-s=streamers]'))">Ver Streamers</button>`;
     return;
   }
-  const trophies=['🥇','🥈','🥉'];
-  document.getElementById('lb-body').innerHTML=lb.map((p,i)=>{
-    const wr=p.partidas>0?Math.round(p.victorias/p.partidas*100):0;
-    const lv=lvl(p.puntos);
-    const cls=i<3?'r'+(i+1):'';
-    return`<div class="lb-row ${cls}" onclick="op('${p.apodo}')">
-      <div class="pos-wrap">
-        ${i<3?`<span class="trophy">${trophies[i]}</span>`:`<span class="pos-n">#${i+1}</span>`}
+  const live=ss.filter(s=>s.activo).length;
+  const rows=ss.slice(0,5).map(s=>{
+    const av=s.avatar_url||(lb.find(p=>p.apodo===s.apodo)||{}).avatar_url||'';
+    return`<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--br)">
+      ${avEl(av,s.apodo,'stav')}
+      <div style="flex:1;min-width:0">
+        <div style="font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700">${s.apodo}</div>
+        <div style="font-size:10px;color:${s.activo?'var(--green)':'var(--t3)'};text-transform:uppercase;font-weight:700;letter-spacing:.5px">${s.activo?'● EN VIVO':'○ Offline'}</div>
       </div>
-      <div class="pcell">
-        ${av(p.avatar_url,p.apodo,'av')}
-        <span class="pname">${p.apodo}</span>
-      </div>
-      <div class="elo-cell">
-        <div class="lvl-icon lv${lv}">${lv}</div>
-        <div class="elo-n">${fn(p.puntos)}</div>
-      </div>
-      <div class="wl-cell"><span class="ww">${p.victorias}W</span> <span class="ll">/ ${p.derrotas}L</span></div>
-      <div class="wr-cell" style="color:${wr>=50?'var(--green)':'var(--red)'}">${wr}%</div>
-      <div class="coin-cell">🪙 ${p.coins||0}</div>
-      <div class="mvp-cell">⭐ ${p.mvps||0}</div>
+      <div style="font-size:10px;color:var(--t3)">${s.modo.toUpperCase()}</div>
     </div>`;
   }).join('');
+  document.getElementById('h-st').innerHTML=`<div class="ph"><span>Streamers</span><span class="c">${live} en vivo</span></div>${rows}<button class="p-btn" onclick="show('streamers',document.querySelector('[data-s=streamers]'))">Ver Todos →</button>`;
 }
-
-function rPL(){
-  document.getElementById('pl').innerHTML=(D.leaderboard||[]).map(p=>
-    `<span class="pc" onclick="op('${p.apodo}')">${p.apodo}</span>`).join('');
-}
+function rPL(){document.getElementById('pl').innerHTML=(D.leaderboard||[]).map(p=>`<span class="plc" onclick="op('${p.apodo}')">${p.apodo}</span>`).join('');}
 function search(){
-  const q=document.getElementById('si').value.toLowerCase().trim();
-  if(!q)return;
+  const q=document.getElementById('si').value.toLowerCase().trim();if(!q)return;
   const p=(D.leaderboard||[]).find(x=>x.apodo.toLowerCase().includes(q));
-  if(p)spd(p);
-  else document.getElementById('pr').innerHTML='<div class="no-data"><h3>No encontrado</h3><p>Intenta con otro nombre</p></div>';
+  if(p)spd(p);else nod('pr','No encontrado','Intenta con otro nombre');
 }
-function op(a){
-  show('perfil',document.querySelector('.hdr-nav a:nth-child(2)'));
-  const p=(D.leaderboard||[]).find(x=>x.apodo===a);if(p)spd(p);
-}
+function op(a){show('perfil',document.querySelector('[data-s="perfil"]'));const p=(D.leaderboard||[]).find(x=>x.apodo===a);if(p)spd(p);}
 function spd(p){
   const wr=p.partidas>0?Math.round(p.victorias/p.partidas*100):0;
   const lv=lvl(p.puntos);
-  const init=p.apodo[0].toUpperCase();
-  const avatarHtml=p.avatar_url
-    ?`<img src="${p.avatar_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${init}'">`
+  const init=(p.apodo||'?')[0].toUpperCase();
+  const avH=p.avatar_url
+    ?`<img src="${p.avatar_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${init}';this.parentNode.style.padding='0 0 0 0'">`
     :init;
+
+  // Barra de progreso de nivel
+  const lvlThresholds=[0,800,950,1100,1250,1400,1550,1700,1850,2000,99999];
+  const curMin=lvlThresholds[lv-1], curMax=lvlThresholds[lv];
+  const progPct=curMax===99999?100:Math.min(100,Math.round((p.puntos-curMin)/(curMax-curMin)*100));
+
+  // Historial
   const mys=(D.partidas||[]).filter(m=>m.equipo1.includes(p.apodo)||m.equipo2.includes(p.apodo));
-  const mrs=mys.slice(0,10).map(m=>{
+  const mrs=mys.slice(0,15).map(m=>{
     const e1=m.equipo1.includes(p.apodo);
     const w=(e1&&m.ganador===1)||(!e1&&m.ganador===2);
-    return`<div class="pmr">
-      <div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div>
-      <div class="mmode">${m.modo.toUpperCase()}</div>
-      <div class="mteams">
-        <span class="${e1?'mvn':''}">${m.equipo1}</span>
-        <span style="color:var(--t3);margin:0 5px">vs</span>
-        <span class="${!e1?'mvn':''}">${m.equipo2}</span>
+    const myTeam=e1?m.equipo1:m.equipo2;
+    const theirTeam=e1?m.equipo2:m.equipo1;
+    return`<div class="mh-row ${w?'win':'loss'}">
+      <div class="mh-res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div>
+      <div class="mh-mode">${m.modo.toUpperCase()}</div>
+      <div class="mh-teams">
+        <span class="bold">${myTeam}</span>
+        <span style="color:var(--t3);margin:0 6px">vs</span>
+        <span>${theirTeam}</span>
       </div>
-      <div class="mmvp">${m.mvp?'⭐ '+m.mvp:''}</div>
-      <div class="mdate">${m.fecha}</div>
+      <div class="mh-mvp">${m.mvp?'⭐ '+m.mvp:''}</div>
+      <div class="mh-date">${m.fecha}</div>
     </div>`;
   }).join('');
+
   document.getElementById('si').value=p.apodo;
   document.getElementById('pr').innerHTML=`
-  <div class="pw">
-    <div class="pcard">
-      <div class="pbanner"></div>
-      <div class="pbody">
-        <div class="pav">${avatarHtml}</div>
-        <div class="pnick">${p.apodo}</div>
-        <div class="prank">Rank #${p.rank}</div>
-        <div class="pelo-row">
-          <div class="lvl-icon lv${lv}" style="width:38px;height:38px;font-size:15px">${lv}</div>
-          <div><div class="pelo-n">${fn(p.puntos)}</div><div class="pelo-lbl">ELO Points</div></div>
-        </div>
-        <div class="sg">
-          <div class="si g"><div class="sv">${p.victorias}</div><div class="sl">Wins</div></div>
-          <div class="si r"><div class="sv">${p.derrotas}</div><div class="sl">Losses</div></div>
-          <div class="si or"><div class="sv">${wr}%</div><div class="sl">Win Rate</div></div>
-          <div class="si go"><div class="sv">🪙 ${p.coins||0}</div><div class="sl">Coins</div></div>
-          <div class="si"><div class="sv">${p.partidas}</div><div class="sl">Matches</div></div>
-          <div class="si go"><div class="sv">⭐ ${p.mvps||0}</div><div class="sl">MVPs</div></div>
+  <div class="prof-outer">
+
+    <!-- Banner -->
+    <div class="prof-banner">
+      <div class="prof-banner-overlay"></div>
+    </div>
+
+    <!-- Info bar con avatar superpuesto -->
+    <div class="prof-info-bar">
+      <div class="prof-av-wrap">
+        <div class="prof-av">${avH}</div>
+      </div>
+      <div class="prof-name-block">
+        <div class="prof-nickname">${p.apodo}</div>
+        <div class="prof-rank-badge">
+          <span>Rank</span>
+          <span class="prof-rank-num">#${p.rank}</span>
         </div>
       </div>
     </div>
-    <div class="pmbox">
-      <div class="pmh">Match History</div>
-      ${mrs||'<div class="empty">Sin partidas aún</div>'}
+
+    <!-- Stats horizontales -->
+    <div class="prof-stats-row">
+      <div class="prof-elo-card">
+        <div class="prof-lvl-big lvl lv${lv}">${lv}</div>
+        <div>
+          <div class="prof-elo-num">${fn(p.puntos)}</div>
+          <div class="prof-elo-lbl">ELO Points</div>
+        </div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val green">${p.victorias}</div>
+        <div class="prof-stat-lbl">Wins</div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val red">${p.derrotas}</div>
+        <div class="prof-stat-lbl">Losses</div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val ${wr>=50?'green':'red'}">${wr}%</div>
+        <div class="prof-stat-lbl">Win Rate</div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val">${p.partidas}</div>
+        <div class="prof-stat-lbl">Matches</div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val gold">⭐ ${p.mvps||0}</div>
+        <div class="prof-stat-lbl">MVPs</div>
+      </div>
+      <div class="prof-stat">
+        <div class="prof-stat-val gold">🪙 ${p.coins||0}</div>
+        <div class="prof-stat-lbl">Coins</div>
+      </div>
     </div>
+
+    <!-- Barra de progreso de nivel -->
+    <div class="lvl-progress">
+      <div class="lvl-prog-lbl">Nivel ${lv}</div>
+      <div class="lvl-prog-bar">
+        <div class="lvl-prog-fill" style="width:${progPct}%"></div>
+      </div>
+      <div class="lvl-prog-next">${lv<10?fn(curMax)+' pts para nivel '+(lv+1):'Nivel máximo'}</div>
+    </div>
+
+    <!-- Match History -->
+    <div class="mh-wrap">
+      <div class="mh-hd">
+        <div class="mh-title">Match History</div>
+        <div style="font-size:11px;color:var(--t3)">${mys.length} partida${mys.length!==1?'s':''}</div>
+      </div>
+      ${mrs||'<div style="padding:32px;text-align:center;color:var(--t3);font-size:12px">Sin partidas registradas</div>'}
+    </div>
+
   </div>`;
 }
-
-function filt(m,b){
-  mf=m;document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');rM();
-}
+function filt(m,b){mf=m;document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');rM();}
 function rM(){
   const ms=(D.partidas||[]).filter(m=>mf==='all'||m.modo===mf);
-  if(!ms.length){
-    noData('mb','Sin partidas',mf==='all'?'Aún no hay partidas registradas.':'No hay partidas de modo '+mf+'.');
-    return;
-  }
+  if(!ms.length){nod('mb','Sin partidas',mf==='all'?'Aún no hay partidas.':'No hay partidas '+mf+'.');return;}
   document.getElementById('mb').innerHTML=ms.map(m=>{
     const w=m.ganador===1;
-    return`<div class="mr ${w?'win':'loss'}">
-      <div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div>
-      <div class="mmode">${m.modo.toUpperCase()}</div>
-      <div style="font-size:12px;color:${w?'var(--green)':'var(--t2)'};font-weight:${w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo1}</div>
-      <div style="font-size:12px;color:${!w?'var(--red)':'var(--t2)'};font-weight:${!w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo2}</div>
-      <div style="font-size:11px;color:var(--gold)">${m.mvp?'⭐ '+m.mvp:''}</div>
-      <div style="font-size:10px;color:var(--t3)">${m.fecha}</div>
-    </div>`;
+    return`<div class="mr ${w?'win':'loss'}"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mmode">${m.modo.toUpperCase()}</div><div style="font-size:12px;color:${w?'var(--green)':'var(--t2)'};font-weight:${w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo1}</div><div style="font-size:12px;color:${!w?'var(--red)':'var(--t2)'};font-weight:${!w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo2}</div><div style="font-size:11px;color:var(--gold)">${m.mvp?'⭐'+m.mvp:''}</div><div style="font-size:10px;color:var(--t3)">${m.fecha}</div></div>`;
   }).join('');
 }
-
 function rSt(){
   const ss=D.streamers||[];
-  if(!ss.length){noData('sb','Sin streamers','Asigna el rol Streamer a alguien con <code>!setstreamer @usuario</code>');return;}
+  if(!ss.length){nod('sb','Sin streamers','Usa <code>!setstreamer @usuario</code>');return;}
   const lb=D.leaderboard||[];
-  const enriched=ss.map(s=>({...s,avatar_url:s.avatar_url||(lb.find(p=>p.apodo===s.apodo)||{}).avatar_url||''}));
-  document.getElementById('sb').innerHTML='<div class="stg">'+enriched.map(s=>{
+  const en=ss.map(s=>({...s,avatar_url:s.avatar_url||(lb.find(p=>p.apodo===s.apodo)||{}).avatar_url||''}));
+  document.getElementById('sb').innerHTML='<div class="stg">'+en.map(s=>{
     const p=s.limite>0?Math.round(s.cola/s.limite*100):0;
-    return`<div class="stc ${s.activo?'lv':''}">
-      <div class="stt"></div>
-      <div class="stb">
-        <div class="sth">
-          ${av(s.avatar_url,s.apodo,'stav')}
-          <div>
-            <div class="stname">${s.apodo}</div>
-            <div class="ststat ${s.activo?'lv':'of'}">
-              <div class="dot ${s.activo?'ld':''}"></div>
-              ${s.activo?'EN VIVO':'OFFLINE'}
-            </div>
-          </div>
-        </div>
-        <div class="spills">
-          <span class="pill m">${s.modo.toUpperCase()}</span>
-          <span class="pill">Cola ${s.cola}/${s.limite}</span>
-        </div>
-        ${s.activo?`<div class="qrow"><span>${s.cola}/${s.limite}</span><div class="qb"><div class="qf" style="width:${p}%"></div></div><span>${p}%</span></div>`:''}
-      </div>
-    </div>`;
+    return`<div class="stc ${s.activo?'lv':''}"><div class="stt"></div><div class="stb"><div class="sth">${avEl(s.avatar_url,s.apodo,'stav')}<div><div class="stname">${s.apodo}</div><div class="stst ${s.activo?'lv':'of'}"><div class="dot ${s.activo?'ldot':''}"></div>${s.activo?'EN VIVO':'OFFLINE'}</div></div></div><div class="spills"><span class="pill m">${s.modo.toUpperCase()}</span><span class="pill">Cola ${s.cola}/${s.limite}</span></div>${s.activo?`<div class="qr"><span>${s.cola}/${s.limite}</span><div class="qb"><div class="qf" style="width:${p}%"></div></div><span>${p}%</span></div>`:''}</div></div>`;
   }).join('')+'</div>';
 }
-
 function rSh(){
   const items=D.tienda||[];
-  if(!items.length){noData('shb','Tienda vacía','Los items se configuran en el bot con <code>!setup</code>');return;}
-  document.getElementById('shb').innerHTML='<div class="shg">'+items.map(it=>`
-    <div class="shc">
-      <div class="shi">${IC[it.id]||'🎁'}</div>
-      <div class="shn">${it.nombre}</div>
-      <div class="shd">${it.desc}</div>
-      <div class="shp">🪙 ${it.precio} <span>coins</span></div>
-    </div>`).join('')+'</div>';
+  if(!items.length){nod('shb','Tienda vacía','Configura con <code>!setup</code>');return;}
+  document.getElementById('shb').innerHTML='<div class="shg">'+items.map(it=>`<div class="shc"><div class="shi">${IC[it.id]||'🎁'}</div><div class="shn">${it.nombre}</div><div class="shd">${it.desc}</div><div class="shp">🪙 ${it.precio} <span>coins</span></div></div>`).join('')+'</div>';
 }
-
 function show(id,el){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
-  document.querySelectorAll('.hdr-nav a').forEach(a=>a.classList.remove('on'));
+  document.querySelectorAll('.sb-i').forEach(a=>a.classList.remove('on'));
   document.getElementById(id).classList.add('on');
-  if(el)el.classList.add('on');
+  if(el&&el.classList)el.classList.add('on');
 }
-
-load();
-setInterval(load,5*60*1000);
+load();setInterval(load,5*60*1000);
 </script>
 </body>
 </html>
