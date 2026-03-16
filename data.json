@@ -1,0 +1,113 @@
+{
+  "updated_at": "2026-03-16T14:38:20.006082",
+  "leaderboard": [
+    {
+      "rank": 1,
+      "discord_id": "1463047026215485450",
+      "apodo": "RANK 2 | xD",
+      "puntos": 612534.0,
+      "partidas": 3,
+      "victorias": 2,
+      "derrotas": 1,
+      "racha": 2,
+      "mejor_racha": 2,
+      "mvps": 3,
+      "coins": 20,
+      "winrate": 67,
+      "avatar_url": "https://cdn.discordapp.com/embed/avatars/5.png"
+    },
+    {
+      "rank": 2,
+      "discord_id": "914186864708173855",
+      "apodo": "hehehe",
+      "puntos": 1350.0,
+      "partidas": 3,
+      "victorias": 1,
+      "derrotas": 2,
+      "racha": 0,
+      "mejor_racha": 1,
+      "mvps": 0,
+      "coins": 4,
+      "winrate": 33,
+      "avatar_url": "https://cdn.discordapp.com/avatars/914186864708173855/c07efe62d88686ceace2f918a0720d2f.png?size=1024"
+    }
+  ],
+  "partidas": [
+    {
+      "id": 6,
+      "modo": "1v1",
+      "equipo1": "hehehe",
+      "equipo2": "RANK 2 | xD",
+      "ganador": 2,
+      "mvp": "RANK 2 | xD",
+      "fecha": "15/03 22:57"
+    },
+    {
+      "id": 4,
+      "modo": "1v1",
+      "equipo1": "hehehe",
+      "equipo2": "RANK 2 | xD",
+      "ganador": 2,
+      "mvp": "RANK 2 | xD",
+      "fecha": "15/03 22:55"
+    },
+    {
+      "id": 2,
+      "modo": "1v1",
+      "equipo1": "hehehe",
+      "equipo2": "RANK 2 | xD",
+      "ganador": 1,
+      "mvp": "RANK 2 | xD",
+      "fecha": "15/03 21:49"
+    }
+  ],
+  "streamers": [
+    {
+      "discord_id": "914186864708173855",
+      "apodo": "hehehe",
+      "activo": true,
+      "modo": "1v1",
+      "cola": 0,
+      "limite": 10,
+      "avatar_url": "https://cdn.discordapp.com/avatars/914186864708173855/c07efe62d88686ceace2f918a0720d2f.png?size=1024"
+    }
+  ],
+  "tienda": [
+    {
+      "id": "doble_puntos",
+      "nombre": "Boost x2 Puntos",
+      "precio": 500,
+      "desc": "Tu próxima victoria da el doble de puntos"
+    },
+    {
+      "id": "escudo",
+      "nombre": "Escudo de Puntos",
+      "precio": 300,
+      "desc": "Tu próxima derrota no quita puntos de apuesta"
+    },
+    {
+      "id": "reset_racha",
+      "nombre": "Reset de Racha",
+      "precio": 100,
+      "desc": "Resetea tu racha de derrotas a 0"
+    },
+    {
+      "id": "cambio_apodo",
+      "nombre": "Cambio de Apodo",
+      "precio": 50,
+      "desc": "Cambia tu apodo visible en el bot"
+    },
+    {
+      "id": "estadisticas",
+      "nombre": "Stats Avanzadas",
+      "precio": 75,
+      "desc": "Desbloquea historial completo"
+    },
+    {
+      "id": "canal_vip",
+      "nombre": "Canal VIP 24h",
+      "precio": 250,
+      "desc": "Canal privado temporal solo para ti"
+    }
+  ]
+}
