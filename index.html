@@ -349,7 +349,28 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);fo
 .shp{display:flex;align-items:center;gap:4px;font-family:'Nunito Sans',sans-serif;font-size:13px;font-weight:700;font-weight:700;color:var(--gold)}
 .shp span{font-size:10px;color:var(--t3);font-weight:400;font-family:'Nunito Sans',sans-serif}
 
-.empty{text-align:center;padding:28px;color:var(--t3);font-size:12px}
+/* ── LIVES ── */
+.lives-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.live-card{background:var(--bg3);border:1px solid rgba(255,0,80,.3);overflow:hidden;transition:border-color .15s,transform .12s;position:relative}
+.live-card:hover{border-color:rgba(255,0,80,.6);transform:translateY(-2px)}
+.live-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#ff0050}
+.live-body{padding:14px}
+.live-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.live-av{width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,0,80,.1);display:flex;align-items:center;justify-content:center;font-family:'Nunito Sans',sans-serif;font-size:16px;font-weight:700;color:#ff0050;border:2px solid rgba(255,0,80,.3);flex-shrink:0}
+.live-av img{width:100%;height:100%;object-fit:cover}
+.live-name{font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700}
+.live-badge{display:inline-flex;align-items:center;gap:4px;background:#ff0050;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;letter-spacing:.5px;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;margin-top:2px}
+.live-dot-red{width:5px;height:5px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+.live-title{font-size:11px;color:var(--t2);margin-bottom:10px;line-height:1.4}
+.live-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:#ff0050;border:none;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;padding:7px;width:100%;cursor:pointer;text-decoration:none;transition:background .15s;letter-spacing:.3px}
+.live-btn:hover{background:#cc0040}
+.no-lives{background:var(--bg3);border:1px solid var(--br);padding:40px;text-align:center}
+.no-lives h3{font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;color:var(--t2);margin-bottom:6px}
+.no-lives p{font-size:12px;color:var(--t3);line-height:1.6}
+
+/* SVG icons in sidebar */
+.sb-i svg{flex-shrink:0;opacity:.7;transition:opacity .15s}
+.sb-i:hover svg,.sb-i.on svg{opacity:1}
 .loading{text-align:center;padding:28px;color:var(--t2);font-size:10px;letter-spacing:2px;text-transform:uppercase}
 .nd{background:var(--bg3);border:1px solid var(--br);padding:30px;text-align:center}
 .nd h3{font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;font-weight:700;color:var(--t2);margin-bottom:4px}
@@ -389,16 +410,31 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);fo
       </div>
     </div>
     <div class="sb-grp">
-      <div class="sb-i on" data-s="home" onclick="show('home',this)"><span class="ic">🏠</span>Inicio</div>
-      <div class="sb-i" data-s="ranking" onclick="show('ranking',this)"><span class="ic">🏆</span>Ranking<span class="sb-c" id="s-lb">0</span></div>
-      <div class="sb-i" data-s="perfil" onclick="show('perfil',this)"><span class="ic">👤</span>Perfil</div>
-      <div class="sb-i" data-s="partidas" onclick="show('partidas',this)"><span class="ic">⚔️</span>Partidas<span class="sb-c" id="s-m">0</span></div>
+      <div class="sb-i on" data-s="home" onclick="show('home',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Inicio
+      </div>
+      <div class="sb-i" data-s="ranking" onclick="show('ranking',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z"/></svg>Ranking<span class="sb-c" id="s-lb">0</span>
+      </div>
+      <div class="sb-i" data-s="perfil" onclick="show('perfil',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>Perfil
+      </div>
+      <div class="sb-i" data-s="partidas" onclick="show('partidas',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>Partidas<span class="sb-c" id="s-m">0</span>
+      </div>
+      <div class="sb-i" data-s="lives" onclick="show('lives',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>Lives<span class="sb-c lv" id="s-lives">0</span>
+      </div>
     </div>
     <div class="sb-div"></div>
     <div class="sb-grp">
       <div class="sb-lbl">Comunidad</div>
-      <div class="sb-i" data-s="streamers" onclick="show('streamers',this)"><span class="ic">🎙️</span>Streamers<span class="sb-c lv" id="s-st">0</span></div>
-      <div class="sb-i" data-s="tienda" onclick="show('tienda',this)"><span class="ic">🛒</span>Tienda</div>
+      <div class="sb-i" data-s="streamers" onclick="show('streamers',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.42 1.33 4.59 3.41 6.03L4 21l4.3-1.53C9.38 19.8 10.66 20 12 20c5.52 0 10-3.58 10-9s-4.48-8-10-8zm1 13h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Streamers<span class="sb-c lv" id="s-st">0</span>
+      </div>
+      <div class="sb-i" data-s="tienda" onclick="show('tienda',this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-14.9-3.4L4.1 3H1V1h4.6l.8 2H21c.6 0 1 .4.9 1l-2 9c-.1.5-.5.9-1 .9H8l-.6 2.3c-.1.4.1.7.6.7H21v2H8c-1.8 0-3.1-1.6-2.9-3.4z"/></svg>Tienda
+      </div>
     </div>
     <div class="sb-div"></div>
     <div class="sb-bot">
@@ -515,6 +551,17 @@ body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--t);fo
       </div>
     </div>
 
+    <!-- LIVES TIKTOK -->
+    <div id="lives" class="sec">
+      <div class="inner">
+        <div class="stit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--o)" style="flex-shrink:0"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          TikTok Lives <span class="n" id="lives-cnt">0</span>
+        </div>
+        <div id="lives-body"><div class="loading">Cargando</div></div>
+      </div>
+    </div>
+
     <!-- TIENDA -->
     <div id="tienda" class="sec">
       <div class="inner">
@@ -544,26 +591,29 @@ function nod(el,t,s){document.getElementById(el).innerHTML=`<div class="nd"><h3>
 
 async function load(){
   try{const r=await fetch('data.json?t='+Date.now());if(!r.ok)throw 0;D=await r.json();}
-  catch{D={updated_at:new Date().toISOString(),leaderboard:[],partidas:[],streamers:[],tienda:[]};}
+  catch{D={updated_at:new Date().toISOString(),leaderboard:[],partidas:[],streamers:[],tienda:[],tiktok_lives:[]};}
   const lb=D.leaderboard||[],ms=D.partidas||[],ss=D.streamers||[];
+  const lv_tt=(D.tiktok_lives||[]).length;
   const live=ss.filter(s=>s.activo).length;
   document.getElementById('s-lb').textContent=lb.length;
   document.getElementById('s-m').textContent=ms.length;
   document.getElementById('s-st').textContent=live;
-  document.getElementById('tb-live').textContent='● '+live+' en vivo';
+  document.getElementById('s-lives').textContent=lv_tt;
+  document.getElementById('lives-cnt').textContent=lv_tt;
+  document.getElementById('tb-live').textContent='● '+lv_tt+' en vivo';
   document.getElementById('lb-cnt').textContent=lb.length;
   document.getElementById('top-n').textContent=lb.length;
-  document.getElementById('live-lbl').textContent=live+' streamer'+(live!==1?'s':'')+' en vivo';
+  document.getElementById('live-lbl').textContent=lv_tt+' en vivo ahora';
   document.getElementById('hs').innerHTML=`
     <div class="hstat"><div class="hstat-n">${lb.length}</div><div class="hstat-l">Jugadores</div></div>
     <div class="hstat"><div class="hstat-n">${ms.length}</div><div class="hstat-l">Partidas</div></div>
-    <div class="hstat"><div class="hstat-n">${live}</div><div class="hstat-l">En Vivo</div></div>`;
+    <div class="hstat"><div class="hstat-n">${lv_tt}</div><div class="hstat-l">En Vivo</div></div>`;
   document.getElementById('c-m-s').textContent=ms.length+' partida'+(ms.length!==1?'s':'')+' registrada'+(ms.length!==1?'s':'');
-  document.getElementById('c-st-s').textContent=live+' streamer'+(live!==1?'s':'')+' en vivo';
+  document.getElementById('c-st-s').textContent=lv_tt+' en vivo ahora';
   if(lb.length){const lv=lvl(lb[0].puntos);document.getElementById('top-elo').innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px"><span class="lvl lv${lv}" style="width:19px;height:19px;font-size:9px">${lv}</span>${fn(lb[0].puntos)}</span>`;}
   rAll();
 }
-function rAll(){rLB();rHLB();rHSt();rM();rSt();rSh();rPL();}
+function rAll(){rLB();rHLB();rHSt();rM();rSt();rSh();rPL();rLives();}
 
 function lbRow(p,i){
   const wr=p.partidas>0?Math.round(p.victorias/p.partidas*100):0;
@@ -757,7 +807,42 @@ function show(id,el){
   document.getElementById(id).classList.add('on');
   if(el&&el.classList)el.classList.add('on');
 }
-load();setInterval(load,5*60*1000);
+function rLives(){
+  const lives=D.tiktok_lives||[];
+  if(!lives.length){
+    document.getElementById('lives-body').innerHTML=`
+      <div class="no-lives">
+        <h3>Nadie en live ahora</h3>
+        <p>Cuando un jugador con TikTok vinculado esté en directo,<br>aparecerá aquí automáticamente.<br><br>
+        Vincula tu TikTok con el bot usando el panel de <code style="color:var(--o)">!paneltiktok</code></p>
+      </div>`;
+    return;
+  }
+  document.getElementById('lives-body').innerHTML='<div class="lives-grid">'+lives.map(l=>{
+    const init=(l.apodo||'?')[0].toUpperCase();
+    const avH=l.avatar_url
+      ?`<img src="${l.avatar_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${init}'">`
+      :init;
+    return`<div class="live-card">
+      <div class="live-body">
+        <div class="live-top">
+          <div class="live-av">${avH}</div>
+          <div>
+            <div class="live-name">${l.apodo}</div>
+            <div class="live-badge"><div class="live-dot-red"></div> EN VIVO</div>
+          </div>
+        </div>
+        ${l.titulo?`<div class="live-title">${l.titulo}</div>`:''}
+        <a href="${l.url}" target="_blank" class="live-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/></svg>
+          Ver en TikTok — @${l.tiktok_user}
+        </a>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+load();setInterval(load,3*60*1000);
 </script>
 </body>
 </html>
