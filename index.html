@@ -281,6 +281,64 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
   .pfst{flex-wrap:wrap}
   .pfs{min-width:33%}
 }
+
+/* ── MATCH CARDS ── */
+.match-list{display:flex;flex-direction:column;gap:10px}
+.match-card{
+  background:var(--s1);border:1px solid var(--br);border-radius:12px;
+  overflow:hidden;transition:border-color .15s,transform .1s;cursor:pointer;
+}
+.match-card:hover{border-color:var(--br2);transform:translateY(-1px)}
+.match-card.win{border-left:4px solid var(--green)}
+.match-card.loss{border-left:4px solid var(--red)}
+.mc-top{display:flex;align-items:center;padding:14px 18px;gap:14px}
+.mc-result{
+  width:52px;height:52px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;letter-spacing:.8px;flex-shrink:0;
+}
+.mc-result.win{background:rgba(0,200,81,.12);color:var(--green)}
+.mc-result.loss{background:rgba(229,57,53,.1);color:var(--red)}
+.mc-mode{
+  background:var(--s3);color:var(--blue);
+  font-size:10px;font-weight:800;padding:3px 9px;border-radius:4px;
+  white-space:nowrap;flex-shrink:0;
+}
+.mc-teams{flex:1;min-width:0}
+.mc-team-row{
+  display:flex;align-items:center;gap:8px;padding:3px 0;
+}
+.mc-team-name{
+  font-size:14px;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  cursor:pointer;transition:color .12s;
+}
+.mc-team-name:hover{color:var(--ac)}
+.mc-team-name.winner{color:var(--green)}
+.mc-team-name.loser{color:var(--t2);font-weight:500}
+.mc-vs{font-size:10px;color:var(--t3);font-weight:700;margin:1px 0;padding-left:2px}
+.mc-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
+.mc-date{font-size:11px;color:var(--t3);white-space:nowrap}
+.mc-mvp{
+  background:rgba(255,179,0,.08);border:1px solid rgba(255,179,0,.15);
+  color:var(--gold);font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:20px;white-space:nowrap;
+}
+.mc-badge{
+  background:var(--s3);color:var(--t3);
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;
+}
+.mc-divider{height:1px;background:var(--br);margin:0 18px}
+.mc-bottom{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 18px;background:var(--s2);
+}
+.mc-av-grp{display:flex;align-items:center}
+.mc-av-grp .av{width:22px;height:22px;font-size:9px;margin-left:-6px;border:2px solid var(--s2)}
+.mc-av-grp .av:first-child{margin-left:0}
+.mc-bottom-sep{width:1px;height:14px;background:var(--br2);flex-shrink:0}
+.mc-stat{font-size:10px;color:var(--t3);font-weight:500}
+.mc-stat span{color:var(--t2);font-weight:600}
 </style>
 </head>
 <body>
@@ -381,7 +439,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
         <button class="mf" onclick="filt('3v3',this)">3v3</button>
         <button class="mf" onclick="filt('4v4',this)">4v4</button>
       </div>
-      <div class="tw"><div class="th mc"><span>Resultado</span><span>Modo</span><span>Equipo 1</span><span>Equipo 2</span><span>MVP</span><span>Fecha</span></div><div id="m-body"><div class="loading">Cargando</div></div></div>
+      <div id="m-body"><div class="loading">Cargando</div></div>
     </div></div>
 
     <div id="lives" class="sec"><div class="pg">
@@ -495,13 +553,52 @@ function spd(p){
   </div>`;
 }
 function filt(m,b){mf=m;document.querySelectorAll('.mf').forEach(x=>x.classList.remove('on'));b.classList.add('on');rM();}
+function mcAv(name){
+  const p=(D.leaderboard||[]).find(x=>x.apodo===name);
+  return p?`<div class="av" style="padding:0"><img src="${p.avatar_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.innerHTML='${name[0].toUpperCase()}';this.parentNode.style.padding=''"></div>`:`<div class="av">${(name||'?')[0].toUpperCase()}</div>`;
+}
 function rM(){
   const ms=(D.partidas||[]).filter(m=>mf==='all'||m.modo===mf);
   if(!ms.length){nd('m-body','Sin partidas',mf==='all'?'Aún no hay partidas.':'No hay partidas '+mf+'.');return;}
-  document.getElementById('m-body').innerHTML=ms.map(m=>{
+  document.getElementById('m-body').innerHTML='<div class="match-list">'+ms.map(m=>{
     const w=m.ganador===1;
-    return`<div class="tr mc"><div class="res ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div><div class="mhm">${m.modo.toUpperCase()}</div><div style="font-size:12px;color:${w?'var(--green)':'var(--t2)'};font-weight:${w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo1}</div><div style="font-size:12px;color:${!w?'var(--red)':'var(--t2)'};font-weight:${!w?'600':'400'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.equipo2}</div><div style="font-size:11px;color:var(--gold);font-weight:600">${m.mvp?'MVP: '+m.mvp:''}</div><div style="font-size:10px;color:var(--t3)">${m.fecha}</div></div>`;
-  }).join('');
+    const winner=w?m.equipo1:m.equipo2;
+    const loser=w?m.equipo2:m.equipo1;
+    const e1players=m.equipo1.split(' + ');
+    const e2players=m.equipo2.split(' + ');
+    const allPlayers=[...e1players,...e2players];
+    const avs=allPlayers.slice(0,6).map(n=>mcAv(n.trim())).join('');
+    return`<div class="match-card ${w?'win':'loss'}">
+      <div class="mc-top">
+        <div class="mc-result ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div class="mc-mode">${m.modo.toUpperCase()}</div>
+        </div>
+        <div class="mc-teams">
+          <div class="mc-team-row">
+            <div class="mc-team-name winner" onclick="op('${e1players[0].trim()}')">${m.equipo1}</div>
+          </div>
+          <div class="mc-vs">vs</div>
+          <div class="mc-team-row">
+            <div class="mc-team-name loser" onclick="op('${e2players[0].trim()}')">${m.equipo2}</div>
+          </div>
+        </div>
+        <div class="mc-right">
+          <div class="mc-date">${m.fecha}</div>
+          ${m.mvp?`<div class="mc-mvp">MVP: ${m.mvp}</div>`:'<div class="mc-badge">Sin MVP</div>'}
+        </div>
+      </div>
+      <div class="mc-divider"></div>
+      <div class="mc-bottom">
+        <div class="mc-av-grp">${avs}</div>
+        <div class="mc-bottom-sep"></div>
+        <div class="mc-stat">Ganó <span>${winner}</span></div>
+        <div class="mc-bottom-sep"></div>
+        <div class="mc-stat">Perdió <span>${loser}</span></div>
+        ${m.mvp?`<div class="mc-bottom-sep"></div><div class="mc-stat">MVP <span>${m.mvp}</span></div>`:''}
+      </div>
+    </div>`;
+  }).join('')+'</div>';
 }
 function rLV(){
   const lives=D.tiktok_lives||[];
