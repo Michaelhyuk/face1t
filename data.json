@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-16T17:52:51.076735",
+  "updated_at": "2026-03-16T18:20:07.034880",
   "leaderboard": [
     {
       "rank": 1,
@@ -101,7 +101,7 @@
     {
       "discord_id": "914186864708173855",
       "apodo": "hehehe",
-      "activo": true,
+      "activo": false,
       "modo": "1v1",
       "cola": 0,
       "limite": 10,
