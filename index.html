@@ -289,6 +289,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
   overflow:hidden;transition:border-color .15s,transform .1s;cursor:pointer;
 }
 .match-card:hover{border-color:var(--br2);transform:translateY(-1px)}
+.mc-link{color:var(--ac);font-weight:700;cursor:pointer;transition:opacity .12s}.mc-link:hover{opacity:.75}
 .match-card.win{border-left:4px solid var(--green)}
 .match-card.loss{border-left:4px solid var(--red)}
 .mc-top{display:flex;align-items:center;padding:14px 18px;gap:14px}
@@ -313,7 +314,7 @@ body{background:var(--bg);color:var(--t1);font-size:13px;display:flex;flex-direc
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   cursor:pointer;transition:color .12s;
 }
-.mc-team-name:hover{color:var(--ac)}
+.mc-team-name{cursor:pointer}
 .mc-team-name.winner{color:var(--green)}
 .mc-team-name.loser{color:var(--t2);font-weight:500}
 .mc-vs{font-size:10px;color:var(--t3);font-weight:700;margin:1px 0;padding-left:2px}
@@ -568,7 +569,7 @@ function rM(){
     const e2players=m.equipo2.split(' + ');
     const allPlayers=[...e1players,...e2players];
     const avs=allPlayers.slice(0,6).map(n=>mcAv(n.trim())).join('');
-    return`<div class="match-card ${w?'win':'loss'}">
+    return`<div class="match-card ${w?'win':'loss'}" onclick="op('${e1players[0].trim()}')">
       <div class="mc-top">
         <div class="mc-result ${w?'win':'loss'}">${w?'WIN':'LOSS'}</div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
@@ -576,11 +577,11 @@ function rM(){
         </div>
         <div class="mc-teams">
           <div class="mc-team-row">
-            <div class="mc-team-name winner" onclick="op('${e1players[0].trim()}')">${m.equipo1}</div>
+            <div class="mc-team-name winner">${m.equipo1}</div>
           </div>
           <div class="mc-vs">vs</div>
           <div class="mc-team-row">
-            <div class="mc-team-name loser" onclick="op('${e2players[0].trim()}')">${m.equipo2}</div>
+            <div class="mc-team-name loser">${m.equipo2}</div>
           </div>
         </div>
         <div class="mc-right">
@@ -589,13 +590,13 @@ function rM(){
         </div>
       </div>
       <div class="mc-divider"></div>
-      <div class="mc-bottom">
+      <div class="mc-bottom" onclick="event.stopPropagation()">
         <div class="mc-av-grp">${avs}</div>
         <div class="mc-bottom-sep"></div>
-        <div class="mc-stat">Ganó <span>${winner}</span></div>
+        <div class="mc-stat">Ganó <span class="mc-link" onclick="op('${winner.trim()}')">${winner}</span></div>
         <div class="mc-bottom-sep"></div>
-        <div class="mc-stat">Perdió <span>${loser}</span></div>
-        ${m.mvp?`<div class="mc-bottom-sep"></div><div class="mc-stat">MVP <span>${m.mvp}</span></div>`:''}
+        <div class="mc-stat">Perdió <span class="mc-link" onclick="op('${loser.trim()}')">${loser}</span></div>
+        ${m.mvp?`<div class="mc-bottom-sep"></div><div class="mc-stat">MVP <span class="mc-link" onclick="op('${m.mvp.trim()}')">${m.mvp}</span></div>`:''}
       </div>
     </div>`;
   }).join('')+'</div>';
